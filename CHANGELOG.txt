@@ -1,3 +1,8 @@
+Version 1.16092014.1 (by sgwestrip - bug reported by Jordan Hall in BGG forums)
+
+Fix: cards #13,27,30,32,41,107,113,119 will now add 1 Aid marker rather than set Aid to 1
+Fix: card #81 will remove 1 Aid marker rather than set Aid to zero
+
 Version 1.11082014.1 (by sgwestrip)
 
 Changed wording for Jihadist Ideology choices. The wording is now as per the rulebook.

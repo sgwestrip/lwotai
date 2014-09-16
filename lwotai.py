@@ -15,7 +15,7 @@ Thanks to Dave Horn for implementing the Save and Undo system.
 SUSPEND_FILE = "suspend.lwot"
 UNDO_FILE = "undo.lwot"
 ROLLBACK_FILE = "turn."
-RELEASE = "1.11082014.1"
+RELEASE = "1.16092014.1"
 
 import sys
 import cmd
@@ -798,10 +798,10 @@ class Card:
 					else:
 						print "There are troops in both Iraq and Syria."
 						if app.getYesNoFromUser("Do you want to add the Aid to Iraq? (y/n): "):
-							app.map["Iraq"].aid = 1
+							app.map["Iraq"].aid += 1
 							app.outputToHistory("Aid in Iraq.", False)
 						else:
-							app.map["Syria"].aid = 1
+							app.map["Syria"].aid += 1
 							app.outputToHistory("Aid in Syria.", False)
 					app.changePrestige(1, False)
 					print ""
@@ -976,7 +976,7 @@ class Card:
 				if app.map["Iraq"].troops() == 0:
 					return False
 				app.markers.append("Saddam Captured")
-				app.map["Iraq"].aid = 1
+				app.map["Iraq"].aid += 1
 				app.outputToHistory("Aid added in Iraq", False)
 				app.changePrestige(1)
 				app.outputToHistory(app.map["Iraq"].countryStr(), True)
@@ -1056,7 +1056,7 @@ class Card:
 							else:
 								target = input
 								break
-				app.map[target].aid = 1
+				app.map[target].aid += 1
 				app.outputToHistory("Aid added to %s." % target, False)
 				woiRoll = app.getRollFromUser("Enter WOI Roll or r to have program roll: ")
 				modRoll = app.modifiedWoIRoll(woiRoll, target, False)
@@ -1108,7 +1108,7 @@ class Card:
 							else:
 								app.map[input].alignment = "Neutral"
 								app.outputToHistory("%s now Neutral" % input, False)
-								app.map[input].aid = 1
+								app.map[input].aid += 1
 								app.outputToHistory("Aid added to %s." % input, False)
 								app.outputToHistory(app.map[input].countryStr(), True)
 								break
@@ -1227,7 +1227,7 @@ class Card:
 								break			
 				app.map[target].markers.append("NATO")
 				app.outputToHistory("NATO added in %s" % target, False)
-				app.map[target].aid = 1
+				app.map[target].aid += 1
 				app.outputToHistory("Aid added in %s" % target, False)
 				app.outputToHistory(app.map[target].countryStr(), True)				
 			elif self.number == 42: # Pakistani Offensive
@@ -1532,7 +1532,7 @@ class Card:
 				target = random.choice(possibles)
 				app.placeCells(target, 5)
 				if app.map[target].aid > 0:
-					app.map[target].aid = 0
+					app.map[target].aid -= 1
 					app.outputToHistory("Aid removed from %s" % target, False)
 				else:
 					app.map[target].besieged = 1
@@ -1908,7 +1908,7 @@ class Card:
 			elif self.number == 107: # Kurdistan
 				if side == "US":
 					app.testCountry("Iraq")
-					app.map["Iraq"].aid = 1
+					app.map["Iraq"].aid += 1
 					app.outputToHistory("Aid added to Iraq.", False)
 					app.outputToHistory(app.map["Iraq"].countryStr(), True)
 				else:
@@ -2020,7 +2020,7 @@ class Card:
 			elif self.number == 113: # Darfur
 				app.testCountry("Sudan")
 				if app.prestige >= 7:
-					app.map["Sudan"].aid = 1
+					app.map["Sudan"].aid += 1
 					app.outputToHistory("Aid added to Sudan.", False)
 					if app.map["Sudan"].alignment == "Adversary":
 						app.map["Sudan"].alignment = "Neutral"
@@ -2124,7 +2124,7 @@ class Card:
 						elif app.map["Yemen"].alignment == "Neutral":
 							app.map["Yemen"].alignment = "Ally"
 						app.outputToHistory("Yemen Alignment improved to %s." % app.map["Yemen"].alignment, False)
-						app.map["Yemen"].aid = 1
+						app.map["Yemen"].aid += 1
 						app.outputToHistory("Aid added to Yemen.", True)
 				else:
 					if app.map["Yemen"].alignment == "Ally":
