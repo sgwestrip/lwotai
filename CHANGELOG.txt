@@ -1,3 +1,9 @@
+Version 1.22092014.1 (by sgwestrip - bugs reported by Jordan Hall (FATA) and Christophe Denoize (SADR) in BGG forums)
+
+Fix: possibility of more than one FATA marker being added to Pakistan. Now only one FATA marker can be present in Pakistan
+Fix: if SADR marker present in Iraq it was possible to end up with -1 cell. Cannot now go below zero!
+
+
 Version 1.16092014.1 (by sgwestrip - bug reported by Jordan Hall in BGG forums)
 
 Fix: cards #13,27,30,32,41,107,113,119 will now add 1 Aid marker rather than set Aid to 1

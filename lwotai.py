@@ -15,7 +15,7 @@ Thanks to Dave Horn for implementing the Save and Undo system.
 SUSPEND_FILE = "suspend.lwot"
 UNDO_FILE = "undo.lwot"
 ROLLBACK_FILE = "turn."
-RELEASE = "1.16092014.1"
+RELEASE = "1.22092014.1"
 
 import sys
 import cmd
@@ -87,7 +87,7 @@ class Country:
 	
 	def removeActiveCell(self):
 		self.activeCells -= 1
-		if self.activeCells < 0:
+		if self.activeCells <= 0:
 			if "Sadr" in self.markers:
 				self.markers.remove("Sadr")
 				self.app.outputToHistory("Sadr removed from %s" % self.name, False)
@@ -1519,8 +1519,9 @@ class Card:
 				app.handleTravel(2, False, False, True)
 			elif self.number == 80: # FATA
 				app.testCountry("Pakistan")
-				app.map["Pakistan"].markers.append("FATA")
-				app.outputToHistory("FATA Maker added in Pakistan", True)
+				if app.map["Pakistan"].markers.count("FATA") == 0:
+					app.map["Pakistan"].markers.append("FATA")
+					app.outputToHistory("FATA marker added in Pakistan", True)
 				app.placeCells("Pakistan", 1)
 			elif self.number == 81: # Foreign Fighters
 				possibles = []
